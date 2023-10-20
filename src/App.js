@@ -75,9 +75,12 @@ const ChatRoom = () => {
       // Fetch messages from Firebase Realtime Database
       getDocs(messagesRef)
         .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            setMessages(Object.values(data));
+          if (!snapshot.empty) {
+            const data = [];
+            snapshot.forEach((doc) => {
+              data.push({ id: doc.id, ...doc.data() });
+            });
+            setMessages(data);
           }
         })
         .catch((error) => {
