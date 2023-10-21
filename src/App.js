@@ -89,7 +89,8 @@ const ChatRoom = () => {
     }, []); // Run this effect only once when the component mounts
   
     return (
-      <div className="chat-room">
+      <>
+      <main>
         {messages.map((message, index) => (
           <Message
             key={index}
@@ -97,19 +98,20 @@ const ChatRoom = () => {
             sender={message.sender} // You should adjust this based on your data structure
           />
         ))}
+        </main>
         <form onSubmit={sendMessage}>
     <input value={value} onChange={(e) => setValue(e.target.value)}/>
 
     <button type='submit'>Send</button>
    </form>
-      </div>
+   </>
     );
   };
 
 const SignOut = () => {
   return auth.currentUser && (
 
-    <button onClick={() => auth.signOut()}>Sign out</button>
+    <button className='sign-out' onClick={() => auth.signOut()}>Sign out</button>
   )
 }
 
