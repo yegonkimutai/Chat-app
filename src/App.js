@@ -28,8 +28,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-       
+      <header>
+      <SignOut />
       </header>
       <section>
         {user ? <ChatRoom /> : <Login />}
@@ -106,7 +106,7 @@ const ChatRoom = () => {
     );
   };
 
-const signOut = () => {
+const SignOut = () => {
   return auth.currentUser && (
 
     <button onClick={() => auth.signOut()}>Sign out</button>
