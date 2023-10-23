@@ -48,6 +48,7 @@ const Message = ({ text, sender }) => {
 
 
 const ChatRoom = () => {
+  const dummy = useRef(null);
     const [messages, setMessages] = useState([]);
     const messagesRef = collection(database, 'messages');
     const [value, setValue] = useState('')
@@ -83,16 +84,20 @@ const ChatRoom = () => {
             data.sort((a, b) => a.createdAt - b.createdAt)
 
             setMessages(data)
+
+            if (dummy.current) {
+              dummy.current.scrollTop = dummy.current.scrollHeight;
+            }
           }
         })
         .catch((error) => {
           console.error('Error fetching messages:', error);
         });
-    }, []); // Run this effect only once when the component mounts
+    }, [dummy, messagesRef]); // Run this effect only once when the component mounts
   
     return (
       <>
-      <main>
+      <main ref={dummy}>
         {messages.map((message, index) => (
           <Message
             key={index}
