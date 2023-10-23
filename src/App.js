@@ -80,7 +80,9 @@ const ChatRoom = () => {
             snapshot.forEach((doc) => {
               data.push({ id: doc.id, ...doc.data() });
             });
-            setMessages(data);
+            data.sort((a, b) => a.createdAt - b.createdAt)
+
+            setMessages(data)
           }
         })
         .catch((error) => {
